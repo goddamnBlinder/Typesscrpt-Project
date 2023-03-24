@@ -24,35 +24,36 @@ class Project {
     }
 }
 class projectInput {
-    // form: HTMLFormElement
-    title
-    description
-    people
-    button
+    form: HTMLFormElement
+    title: HTMLInputElement
+    description: HTMLInputElement
+    people: HTMLInputElement
+
     constructor(){
-        // this.form = document.querySelector('form') as HTMLFormElement
-        this.button = document?.querySelector('#submit') as HTMLButtonElement
-        this.title = document?.querySelector('#title') as HTMLInputElement
-        this.description = document?.querySelector('#description') as HTMLInputElement
-        this.people= document?.querySelector('#people') as HTMLInputElement
-     
+        this.form = document.querySelector('form')! as HTMLFormElement
+        this.title = document.getElementById('title')! as HTMLInputElement
+        this.description = document?.querySelector('#description')! as HTMLInputElement
+        this.people= document?.querySelector('#people')! as HTMLInputElement
+      
+        this.configure()
     }
-   
+
     configure(){
-     this.button?.addEventListener('click', (e:Event) => {
-            e.preventDefault()
-           return this.submitHandler
-        });
-    //  this.form.addEventListener('click', this.submitHandler)
+     this.form.addEventListener('click', this.submitHandler.bind(this))
     }
     @autobind
-    private submitHandler(){
+    submitHandler(e:Event){
+       e.preventDefault()
 
        const titleValue =this.title.value;
        const descriptionValue = this.description.value;
-       const peoplevalue = this.people.value
-     console.log(titleValue,descriptionValue, peoplevalue);
+       const peoplevalue = +this.people.value
+
+     console.log(descriptionValue, peoplevalue);
+
          }
 }
 
 const projectIn = new projectInput()
+
+

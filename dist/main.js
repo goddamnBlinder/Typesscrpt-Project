@@ -31,25 +31,21 @@ class Project {
 }
 class projectInput {
     constructor() {
-        // this.form = document.querySelector('form') as HTMLFormElement
-        this.button = document === null || document === void 0 ? void 0 : document.querySelector('#submit');
-        this.title = document === null || document === void 0 ? void 0 : document.querySelector('#title');
+        this.form = document.querySelector('form');
+        this.title = document.getElementById('title');
         this.description = document === null || document === void 0 ? void 0 : document.querySelector('#description');
         this.people = document === null || document === void 0 ? void 0 : document.querySelector('#people');
+        this.configure();
     }
     configure() {
-        var _a;
-        (_a = this.button) === null || _a === void 0 ? void 0 : _a.addEventListener('click', (e) => {
-            e.preventDefault();
-            return this.submitHandler;
-        });
-        //  this.form.addEventListener('click', this.submitHandler)
+        this.form.addEventListener('click', this.submitHandler.bind(this));
     }
-    submitHandler() {
+    submitHandler(e) {
+        e.preventDefault();
         const titleValue = this.title.value;
         const descriptionValue = this.description.value;
-        const peoplevalue = this.people.value;
-        console.log(titleValue, descriptionValue, peoplevalue);
+        const peoplevalue = +this.people.value;
+        console.log(descriptionValue, peoplevalue);
     }
 }
 __decorate([
