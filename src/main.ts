@@ -2,12 +2,11 @@ function autobind(target: any, name: string, descriptor: PropertyDescriptor){
     const desc = descriptor.value;
     const newDescriptor:PropertyDescriptor = {
         configurable: true,
-        get() {
-            return desc
-        },
-
+            get() {
+                return desc.bind(this)
+        } 
     }
-
+    return newDescriptor 
 } 
 enum currentStatus {
     Active,
@@ -25,24 +24,30 @@ class Project {
     }
 }
 class projectInput {
-    form: HTMLFormElement
+    // form: HTMLFormElement
     title
     description
     people
+    button
     constructor(){
-        this.form = document?.querySelector('form') as HTMLFormElement
+        // this.form = document.querySelector('form') as HTMLFormElement
+        this.button = document?.querySelector('#submit') as HTMLButtonElement
         this.title = document?.querySelector('#title') as HTMLInputElement
         this.description = document?.querySelector('#description') as HTMLInputElement
         this.people= document?.querySelector('#people') as HTMLInputElement
      
     }
-    @autobind
+   
     configure(){
-    this.form.addEventListener('click', this.submitHandler)
+     this.button?.addEventListener('click', (e:Event) => {
+            e.preventDefault()
+           return this.submitHandler
+        });
+    //  this.form.addEventListener('click', this.submitHandler)
     }
+    @autobind
+    private submitHandler(){
 
-    private submitHandler(e:Event){
-         e.preventDefault()
        const titleValue =this.title.value;
        const descriptionValue = this.description.value;
        const peoplevalue = this.people.value

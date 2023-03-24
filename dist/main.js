@@ -10,9 +10,10 @@ function autobind(target, name, descriptor) {
     const newDescriptor = {
         configurable: true,
         get() {
-            return desc;
-        },
+            return desc.bind(this);
+        }
     };
+    return newDescriptor;
 }
 var currentStatus;
 (function (currentStatus) {
@@ -30,16 +31,21 @@ class Project {
 }
 class projectInput {
     constructor() {
-        this.form = document === null || document === void 0 ? void 0 : document.querySelector('form');
+        // this.form = document.querySelector('form') as HTMLFormElement
+        this.button = document === null || document === void 0 ? void 0 : document.querySelector('#submit');
         this.title = document === null || document === void 0 ? void 0 : document.querySelector('#title');
         this.description = document === null || document === void 0 ? void 0 : document.querySelector('#description');
         this.people = document === null || document === void 0 ? void 0 : document.querySelector('#people');
     }
     configure() {
-        this.form.addEventListener('click', this.submitHandler);
+        var _a;
+        (_a = this.button) === null || _a === void 0 ? void 0 : _a.addEventListener('click', (e) => {
+            e.preventDefault();
+            return this.submitHandler;
+        });
+        //  this.form.addEventListener('click', this.submitHandler)
     }
-    submitHandler(e) {
-        e.preventDefault();
+    submitHandler() {
         const titleValue = this.title.value;
         const descriptionValue = this.description.value;
         const peoplevalue = this.people.value;
@@ -48,6 +54,6 @@ class projectInput {
 }
 __decorate([
     autobind
-], projectInput.prototype, "configure", null);
+], projectInput.prototype, "submitHandler", null);
 const projectIn = new projectInput();
 //# sourceMappingURL=main.js.map
