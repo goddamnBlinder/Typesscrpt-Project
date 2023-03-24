@@ -1,7 +1,14 @@
-function autobind(id: string, name: string, descriptor: PropertyDescriptor){
-    const desc: PropertyDescriptor = 
+function autobind(target: any, name: string, descriptor: PropertyDescriptor){
+    const desc = descriptor.value;
+    const newDescriptor:PropertyDescriptor = {
+        configurable: true,
+        get() {
+            return desc
+        },
 
-}
+    }
+
+} 
 enum currentStatus {
     Active,
     finish
