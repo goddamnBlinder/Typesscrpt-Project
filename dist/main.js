@@ -21,32 +21,51 @@ var currentStatus;
     currentStatus[currentStatus["finish"] = 1] = "finish";
 })(currentStatus || (currentStatus = {}));
 class Project {
-    constructor(id, title, description, people, status) {
+    constructor(id, titleEL, descriptionEL, peopleEL, status) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.people = people;
+        this.titleEL = titleEL;
+        this.descriptionEL = descriptionEL;
+        this.peopleEL = peopleEL;
         this.status = status;
     }
 }
 class projectInput {
     constructor() {
-        this.form = document === null || document === void 0 ? void 0 : document.querySelector('form');
-        this.title = document === null || document === void 0 ? void 0 : document.getElementById('title');
-        this.description = document === null || document === void 0 ? void 0 : document.querySelector('#description');
-        this.people = document === null || document === void 0 ? void 0 : document.querySelector('#people');
+        this.titleEL = document === null || document === void 0 ? void 0 : document.querySelector('#title');
+        this.descriptionEL = document === null || document === void 0 ? void 0 : document.querySelector('#description');
+        this.peopleEL = document === null || document === void 0 ? void 0 : document.getElementById('people');
+        this.btn = document === null || document === void 0 ? void 0 : document.getElementById('submit');
         this.configure();
     }
     configure() {
-        this.form.addEventListener('click', this.submitHandler.bind(this));
+        var _a;
+        (_a = this.btn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', this.submitHandler.bind(this));
     }
     submitHandler(e) {
-        var _a, _b, _c;
         e.preventDefault();
-        const titleValue = (_a = this.title) === null || _a === void 0 ? void 0 : _a.value;
-        const descriptionValue = (_b = this.description) === null || _b === void 0 ? void 0 : _b.value;
-        const peoplevalue = (_c = this.people) === null || _c === void 0 ? void 0 : _c.value;
-        console.log(titleValue, descriptionValue, peoplevalue);
+        this.gatherUserinput();
+    }
+    gatherUserinput() {
+        var _a, _b, _c;
+        const title = (_a = this.titleEL) === null || _a === void 0 ? void 0 : _a.value;
+        const description = (_b = this.descriptionEL) === null || _b === void 0 ? void 0 : _b.value;
+        const people = +((_c = this.peopleEL) === null || _c === void 0 ? void 0 : _c.value);
+        const titleValidatable = {
+            value: title,
+            required: true
+        };
+        const descripValidatable = {
+            value: description,
+            required: true
+        };
+        const peopleValidatable = {
+            value: people,
+            required: true,
+            min: 1,
+            max: 10
+        };
+        validate();
+        return [title, description, people];
     }
 }
 __decorate([

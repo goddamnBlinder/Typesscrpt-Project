@@ -8,6 +8,18 @@ function autobind(target: any, name: string, descriptor: PropertyDescriptor){
     }
     return newDescriptor 
 } 
+
+function validate()
+interface Validatable {
+    value: string | number,
+    required?: true,
+    minLength?: number,
+    maxLength?: number,
+    min?: number,
+    max?: number,
+    
+}
+
 enum currentStatus {
     Active,
     finish
@@ -15,44 +27,68 @@ enum currentStatus {
 class Project {
     constructor(
         public id: string, 
-        public title: string,  
-        public description: string, 
-        public people: number,
+        public titleEL: string,  
+        public descriptionEL: string, 
+        public peopleEL: number,
         public status: currentStatus ){
 
        
     }
 }
 class projectInput {
-    form: HTMLFormElement
-    title: HTMLInputElement
-    description: HTMLInputElement
-    people: HTMLInputElement
+    titleEL: HTMLInputElement
+    descriptionEL: HTMLInputElement
+    peopleEL: HTMLInputElement
+    btn: HTMLButtonElement
     
     constructor(){
-        this.form = document?.querySelector('form') as HTMLFormElement
-        this.title = document?.getElementById('title') as HTMLInputElement
-        this.description = document?.querySelector('#description') as HTMLInputElement
-        this.people= document?.querySelector('#people') as HTMLInputElement
+        this.titleEL = document?.querySelector('#title') as HTMLInputElement
+        this.descriptionEL = document?.querySelector('#description') as HTMLInputElement
+        this.peopleEL= document?.getElementById('people') as HTMLInputElement
+        this.btn = document?.getElementById('submit') as HTMLButtonElement
       
         this.configure()
     }
 
     configure(){
-     this.form.addEventListener('click', this.submitHandler.bind(this))
+     this.btn?.addEventListener('click', this.submitHandler.bind(this))
     }
     @autobind
     submitHandler(e:Event){
        e.preventDefault()
-
-       const titleValue =this.title?.value;
-       const descriptionValue = this.description?.value;
-       const peoplevalue = this.people?.value
-
-     console.log(titleValue, descriptionValue, peoplevalue);
-
+          
+          this.gatherUserinput()
          }
-}
+     private gatherUserinput() : [string, string, number]{
+        const title=this.titleEL?.value;
+        const description = this.descriptionEL?.value;
+        const people = +this.peopleEL?.value;
+
+        const titleValidatable : Validatable = {
+          value: title,
+          required: true
+        }
+
+        const descripValidatable: Validatable= {
+           value: description,
+           required: true
+  
+        }
+
+        const peopleValidatable : Validatable= {
+           value:people,
+           required:true,
+           min: 1,
+           max: 10
+        }
+
+        validate()
+
+        return [title, description, people]  
+    }
+
+}  
+    
 
 const projectIn = new projectInput()
 
