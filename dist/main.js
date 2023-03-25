@@ -15,6 +15,29 @@ function autobind(target, name, descriptor) {
     };
     return newDescriptor;
 }
+//?....................The function that validates the Input values..................//
+function validate(validatableInput) {
+    let isValid = true;
+    if (validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim().length === 0;
+    }
+    if (validatableInput.minLength === null &&
+        typeof validatableInput.value === 'string') {
+        isValid = isValid && validatableInput.value.length >= validatableInput.minLength;
+    }
+    if (validatableInput.maxLength === null &&
+        typeof validatableInput.value === 'string') {
+        isValid = isValid && validatableInput.value.length <= validatableInput.maxLength;
+    }
+    //--------------------------------------------------------------------------//
+    if (validatableInput.min === null && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value >= validatableInput.min;
+    }
+    if (validatableInput.max === null && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value <= validatableInput.max;
+    }
+    return isValid;
+}
 var currentStatus;
 (function (currentStatus) {
     currentStatus[currentStatus["Active"] = 0] = "Active";
@@ -39,11 +62,15 @@ class projectInput {
     }
     configure() {
         var _a;
-        (_a = this.btn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', this.submitHandler.bind(this));
+        (_a = this.btn) === null || _a === void 0 ? void 0 : _a.addEventListener('click', this.submitHandler);
     }
     submitHandler(e) {
         e.preventDefault();
-        this.gatherUserinput();
+        const userInput = this.gatherUserinput();
+        if (Array.isArray(userInput)) {
+            const [title, description, people] = userInput;
+            console.log(userInput);
+        }
     }
     gatherUserinput() {
         var _a, _b, _c;
@@ -56,7 +83,9 @@ class projectInput {
         };
         const descripValidatable = {
             value: description,
-            required: true
+            required: true,
+            minLength: 4,
+            maxLength: 12
         };
         const peopleValidatable = {
             value: people,
@@ -64,7 +93,9 @@ class projectInput {
             min: 1,
             max: 10
         };
-        validate();
+        if (!validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)) {
+            return window.alert("The values seems to be incorrect!");
+        }
         return [title, description, people];
     }
 }

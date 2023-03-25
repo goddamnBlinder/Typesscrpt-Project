@@ -8,8 +8,38 @@ function autobind(target: any, name: string, descriptor: PropertyDescriptor){
     }
     return newDescriptor 
 } 
+//?....................The function that validates the Input values..................//
+function validate(validatableInput:Validatable) : boolean{
+     let isValid = true
 
-function validate()
+     if(validatableInput.required){
+        isValid = isValid && validatableInput.value.toString().trim().length! === 0
+     
+     }
+     if(validatableInput.minLength! === null && 
+        typeof validatableInput.value === 'string' ){
+      
+            isValid = isValid && validatableInput.value.length >= validatableInput.minLength
+     }
+     if(validatableInput.maxLength! === null && 
+        typeof validatableInput.value === 'string' ){
+      
+            isValid = isValid && validatableInput.value.length <= validatableInput.maxLength
+     }
+     //--------------------------------------------------------------------------//
+
+     if(validatableInput.min! === null && typeof validatableInput.value === 'number' ){
+      
+            isValid = isValid && validatableInput.value >= validatableInput.min
+     }
+     if(validatableInput.max! === null &&  typeof validatableInput.value === 'number'){
+      
+            isValid = isValid && validatableInput.value <= validatableInput.max
+     }
+
+  return isValid;
+}
+
 interface Validatable {
     value: string | number,
     required?: true,
@@ -51,15 +81,22 @@ class projectInput {
     }
 
     configure(){
-     this.btn?.addEventListener('click', this.submitHandler.bind(this))
+     this.btn?.addEventListener('click', this.submitHandler)
     }
+
     @autobind
     submitHandler(e:Event){
        e.preventDefault()
+ 
+         const userInput = this.gatherUserinput()
+         if(Array.isArray(userInput)){
+          const [title, description, people] = userInput
+          console.log(userInput);
           
-          this.gatherUserinput()
          }
-     private gatherUserinput() : [string, string, number]{
+
+         }
+     private gatherUserinput() : [string, string, number] | void{
         const title=this.titleEL?.value;
         const description = this.descriptionEL?.value;
         const people = +this.peopleEL?.value;
@@ -71,7 +108,9 @@ class projectInput {
 
         const descripValidatable: Validatable= {
            value: description,
-           required: true
+           required: true,
+           minLength:4,
+           maxLength:12
   
         }
 
@@ -82,7 +121,9 @@ class projectInput {
            max: 10
         }
 
-        validate()
+       if( !validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)){
+           return window.alert("The values seems to be incorrect!")
+       }
 
         return [title, description, people]  
     }
