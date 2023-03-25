@@ -13,11 +13,11 @@ function validate(validatableInput:Validatable) : boolean{
      let isValid = true
 
      if(validatableInput.required){
-        isValid = isValid && validatableInput.value.toString().trim().length! === 0
+        isValid = isValid && validatableInput.value.toString().trim().length! === 0 
      
      }
      if(validatableInput.minLength! === null && 
-        typeof validatableInput.value === 'string' ){
+        typeof validatableInput?.value === 'string' ){
       
             isValid = isValid && validatableInput.value.length >= validatableInput.minLength
      }
@@ -72,10 +72,10 @@ class projectInput {
     btn: HTMLButtonElement
     
     constructor(){
-        this.titleEL = document?.querySelector('#title') as HTMLInputElement
-        this.descriptionEL = document?.querySelector('#description') as HTMLInputElement
-        this.peopleEL= document?.getElementById('people') as HTMLInputElement
-        this.btn = document?.getElementById('submit') as HTMLButtonElement
+        this.titleEL = document?.querySelector("#Title") as HTMLInputElement
+        this.descriptionEL = document?.querySelector("#Description") as HTMLInputElement
+        this.peopleEL= document?.querySelector("#People") as HTMLInputElement
+        this.btn = document?.querySelector(".btn") as HTMLButtonElement
       
         this.configure()
     }
@@ -97,9 +97,9 @@ class projectInput {
 
          }
      private gatherUserinput() : [string, string, number] | void{
-        const title=this.titleEL?.value;
-        const description = this.descriptionEL?.value;
-        const people = +this.peopleEL?.value;
+        const title: string =this.titleEL?.value;
+        const description: string = this.descriptionEL?.value;
+        const people: number = +this.peopleEL?.value;
 
         const titleValidatable : Validatable = {
           value: title,

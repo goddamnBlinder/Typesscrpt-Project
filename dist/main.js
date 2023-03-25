@@ -22,7 +22,7 @@ function validate(validatableInput) {
         isValid = isValid && validatableInput.value.toString().trim().length === 0;
     }
     if (validatableInput.minLength === null &&
-        typeof validatableInput.value === 'string') {
+        typeof (validatableInput === null || validatableInput === void 0 ? void 0 : validatableInput.value) === 'string') {
         isValid = isValid && validatableInput.value.length >= validatableInput.minLength;
     }
     if (validatableInput.maxLength === null &&
@@ -54,10 +54,10 @@ class Project {
 }
 class projectInput {
     constructor() {
-        this.titleEL = document === null || document === void 0 ? void 0 : document.querySelector('#title');
-        this.descriptionEL = document === null || document === void 0 ? void 0 : document.querySelector('#description');
-        this.peopleEL = document === null || document === void 0 ? void 0 : document.getElementById('people');
-        this.btn = document === null || document === void 0 ? void 0 : document.getElementById('submit');
+        this.titleEL = document === null || document === void 0 ? void 0 : document.querySelector("#Title");
+        this.descriptionEL = document === null || document === void 0 ? void 0 : document.querySelector("#Description");
+        this.peopleEL = document === null || document === void 0 ? void 0 : document.querySelector("#People");
+        this.btn = document === null || document === void 0 ? void 0 : document.querySelector(".btn");
         this.configure();
     }
     configure() {
