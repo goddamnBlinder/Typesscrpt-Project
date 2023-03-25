@@ -31,8 +31,8 @@ class Project {
 }
 class projectInput {
     constructor() {
-        this.form = document.querySelector('form');
-        this.title = document.getElementById('title');
+        this.form = document === null || document === void 0 ? void 0 : document.querySelector('form');
+        this.title = document === null || document === void 0 ? void 0 : document.getElementById('title');
         this.description = document === null || document === void 0 ? void 0 : document.querySelector('#description');
         this.people = document === null || document === void 0 ? void 0 : document.querySelector('#people');
         this.configure();
@@ -41,11 +41,12 @@ class projectInput {
         this.form.addEventListener('click', this.submitHandler.bind(this));
     }
     submitHandler(e) {
+        var _a, _b, _c;
         e.preventDefault();
-        const titleValue = this.title.value;
-        const descriptionValue = this.description.value;
-        const peoplevalue = +this.people.value;
-        console.log(descriptionValue, peoplevalue);
+        const titleValue = (_a = this.title) === null || _a === void 0 ? void 0 : _a.value;
+        const descriptionValue = (_b = this.description) === null || _b === void 0 ? void 0 : _b.value;
+        const peoplevalue = (_c = this.people) === null || _c === void 0 ? void 0 : _c.value;
+        console.log(titleValue, descriptionValue, peoplevalue);
     }
 }
 __decorate([

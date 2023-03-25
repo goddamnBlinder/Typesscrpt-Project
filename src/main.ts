@@ -28,12 +28,12 @@ class projectInput {
     title: HTMLInputElement
     description: HTMLInputElement
     people: HTMLInputElement
-
+    
     constructor(){
-        this.form = document.querySelector('form')! as HTMLFormElement
-        this.title = document.getElementById('title')! as HTMLInputElement
-        this.description = document?.querySelector('#description')! as HTMLInputElement
-        this.people= document?.querySelector('#people')! as HTMLInputElement
+        this.form = document?.querySelector('form') as HTMLFormElement
+        this.title = document?.getElementById('title') as HTMLInputElement
+        this.description = document?.querySelector('#description') as HTMLInputElement
+        this.people= document?.querySelector('#people') as HTMLInputElement
       
         this.configure()
     }
@@ -45,11 +45,11 @@ class projectInput {
     submitHandler(e:Event){
        e.preventDefault()
 
-       const titleValue =this.title.value;
-       const descriptionValue = this.description.value;
-       const peoplevalue = +this.people.value
+       const titleValue =this.title?.value;
+       const descriptionValue = this.description?.value;
+       const peoplevalue = this.people?.value
 
-     console.log(descriptionValue, peoplevalue);
+     console.log(titleValue, descriptionValue, peoplevalue);
 
          }
 }
