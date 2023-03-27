@@ -15,20 +15,20 @@ function validate(validatableInput:Validatable) : boolean{
      if(validatableInput.required){
         isValid = isValid && validatableInput.value.toString().trim().length! === 0 
      
-     }
+     } 
      if(validatableInput.minLength! === null && 
-        typeof validatableInput?.value === 'string' ){
+        typeof validatableInput?.value === 'string'){
       
             isValid = isValid && validatableInput.value.length >= validatableInput.minLength
      }
      if(validatableInput.maxLength! === null && 
-        typeof validatableInput.value === 'string' ){
+        typeof validatableInput.value === 'string'){
       
             isValid = isValid && validatableInput.value.length <= validatableInput.maxLength
      }
      //--------------------------------------------------------------------------//
 
-     if(validatableInput.min! === null && typeof validatableInput.value === 'number' ){
+     if(validatableInput.min! === null && typeof validatableInput.value === 'number'){
       
             isValid = isValid && validatableInput.value >= validatableInput.min
      }
@@ -109,20 +109,20 @@ class projectInput {
         const descripValidatable: Validatable= {
            value: description,
            required: true,
-           minLength:4,
-           maxLength:12
+           minLength:12,
+           maxLength: 48
   
         }
 
         const peopleValidatable : Validatable= {
            value:people,
            required:true,
-           min: 1,
-           max: 10
+           min: 12,
+           max: 50
         }
 
        if( !validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)){
-           return window.alert("The values seems to be incorrect!")
+           return window.alert("Some values seems to be incorrect!")
        }
 
         return [title, description, people]  

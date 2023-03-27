@@ -84,17 +84,17 @@ class projectInput {
         const descripValidatable = {
             value: description,
             required: true,
-            minLength: 4,
-            maxLength: 12
+            minLength: 12,
+            maxLength: 48
         };
         const peopleValidatable = {
             value: people,
             required: true,
-            min: 1,
-            max: 10
+            min: 12,
+            max: 50
         };
         if (!validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)) {
-            return window.alert("The values seems to be incorrect!");
+            return window.alert("Some values seems to be incorrect!");
         }
         return [title, description, people];
     }
