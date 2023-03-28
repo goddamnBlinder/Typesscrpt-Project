@@ -98,7 +98,9 @@ class projectInput {
             min: 1,
             max: 12
         };
-        if (!validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)) {
+        if (!validate(titleValidatable)
+            || !validate(descripValidatable)
+            || !validate(peopleValidatable)) {
             return window.alert("Some values seems to be incorrect!");
         }
         return [title, description, people];
