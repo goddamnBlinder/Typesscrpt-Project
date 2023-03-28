@@ -9,30 +9,37 @@ function autobind(target: any, name: string, descriptor: PropertyDescriptor){
     return newDescriptor 
 } 
 //?....................The function that validates the Input values..................//
-function validate(validatableInput:Validatable) : boolean{
-     let isValid = true
+function validate(validatableInput:Validatable) : boolean {
+     let isValid = true;
 
      if(validatableInput.required){
-        isValid = isValid && validatableInput.value.toString().trim().length! === 0 
-     
+        isValid = isValid && validatableInput.value.toString().trim().length! == 0;
      } 
-     if(validatableInput.minLength! === null && 
-        typeof validatableInput?.value === 'string'){
+
+     if(validatableInput.minLength != null && 
+        typeof validatableInput?.value === 'string') {
+
+     isValid = isValid && 
+      validatableInput.value.length >= validatableInput.minLength; 
       
-            isValid = isValid && validatableInput.value.length >= validatableInput.minLength
      }
-     if(validatableInput.maxLength! === null && 
+     if(validatableInput.maxLength != null && 
         typeof validatableInput.value === 'string'){
       
-            isValid = isValid && validatableInput.value.length <= validatableInput.maxLength
+            isValid = isValid && 
+              validatableInput.value.length <= validatableInput.maxLength
      }
-     //--------------------------------------------------------------------------//
 
-     if(validatableInput.min! === null && typeof validatableInput.value === 'number'){
+     //----------------------------------------------------------------------------//
+
+     if(validatableInput.min != null && 
+        typeof validatableInput.value === 'number'){
       
-            isValid = isValid && validatableInput.value >= validatableInput.min
+             isValid = isValid && 
+             validatableInput.value >= validatableInput.min
      }
-     if(validatableInput.max! === null &&  typeof validatableInput.value === 'number'){
+     if(validatableInput.max != null &&  
+        typeof validatableInput.value === 'number'){
       
             isValid = isValid && validatableInput.value <= validatableInput.max
      }
@@ -85,7 +92,7 @@ class projectInput {
     }
 
     @autobind
-    submitHandler(e:Event){
+    private submitHandler(e:Event){
        e.preventDefault()
  
          const userInput = this.gatherUserinput()
@@ -95,7 +102,7 @@ class projectInput {
           
          }
 
-         }
+         } 
      private gatherUserinput() : [string, string, number] | void{
         const title: string =this.titleEL?.value;
         const description: string = this.descriptionEL?.value;
@@ -106,19 +113,19 @@ class projectInput {
           required: true
         }
 
-        const descripValidatable: Validatable= {
+        const descripValidatable: Validatable = {
            value: description,
            required: true,
-           minLength:12,
-           maxLength: 48
+           minLength:4,
+           maxLength: 12
   
         }
 
-        const peopleValidatable : Validatable= {
+        const peopleValidatable : Validatable = {
            value:people,
            required:true,
-           min: 12,
-           max: 50
+           min: 1,
+           max: 12
         }
 
        if( !validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)){

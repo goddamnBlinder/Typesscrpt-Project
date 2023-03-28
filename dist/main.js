@@ -19,21 +19,26 @@ function autobind(target, name, descriptor) {
 function validate(validatableInput) {
     let isValid = true;
     if (validatableInput.required) {
-        isValid = isValid && validatableInput.value.toString().trim().length === 0;
+        isValid = isValid && validatableInput.value.toString().trim().length == 0;
     }
-    if (validatableInput.minLength === null &&
+    if (validatableInput.minLength != null &&
         typeof (validatableInput === null || validatableInput === void 0 ? void 0 : validatableInput.value) === 'string') {
-        isValid = isValid && validatableInput.value.length >= validatableInput.minLength;
+        isValid = isValid &&
+            validatableInput.value.length >= validatableInput.minLength;
     }
-    if (validatableInput.maxLength === null &&
+    if (validatableInput.maxLength != null &&
         typeof validatableInput.value === 'string') {
-        isValid = isValid && validatableInput.value.length <= validatableInput.maxLength;
+        isValid = isValid &&
+            validatableInput.value.length <= validatableInput.maxLength;
     }
-    //--------------------------------------------------------------------------//
-    if (validatableInput.min === null && typeof validatableInput.value === 'number') {
-        isValid = isValid && validatableInput.value >= validatableInput.min;
+    //----------------------------------------------------------------------------//
+    if (validatableInput.min != null &&
+        typeof validatableInput.value === 'number') {
+        isValid = isValid &&
+            validatableInput.value >= validatableInput.min;
     }
-    if (validatableInput.max === null && typeof validatableInput.value === 'number') {
+    if (validatableInput.max != null &&
+        typeof validatableInput.value === 'number') {
         isValid = isValid && validatableInput.value <= validatableInput.max;
     }
     return isValid;
@@ -84,14 +89,14 @@ class projectInput {
         const descripValidatable = {
             value: description,
             required: true,
-            minLength: 12,
-            maxLength: 48
+            minLength: 4,
+            maxLength: 12
         };
         const peopleValidatable = {
             value: people,
             required: true,
-            min: 12,
-            max: 50
+            min: 1,
+            max: 12
         };
         if (!validate(titleValidatable) || !validate(descripValidatable) || !validate(peopleValidatable)) {
             return window.alert("Some values seems to be incorrect!");
