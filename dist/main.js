@@ -95,6 +95,14 @@ class projectInput {
         if (Array.isArray(userInput)) {
             const [title, description, people] = userInput;
             console.log(userInput);
+            //   ****ignore this code snippet, its just to display the user input. you can replace it with yours.*****
+            const displayList = document.querySelector(".display_list");
+            let data = document.createElement("li");
+            data.innerHTML = `<li>${title}</li>
+                        <li>${description}</li>
+                        <li>${people}</li>`;
+            displayList === null || displayList === void 0 ? void 0 : displayList.appendChild(data);
+            //   ***********
         }
     }
     gatherUserinput() {
