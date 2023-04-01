@@ -102,7 +102,7 @@ class projectInput {
                         <li>${description}</li>
                         <li>${people}</li>`;
             displayList === null || displayList === void 0 ? void 0 : displayList.appendChild(data);
-            //   ***********
+            //   *************
         }
     }
     gatherUserinput() {

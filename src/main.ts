@@ -136,11 +136,11 @@ class projectInput {
                         <li>${description}</li>
                         <li>${people}</li>`;
             displayList?.appendChild(data)
-        //   ***********
+        //   *************
           
          }
 
-         } 
+         }
      private gatherUserinput() : [string, string, number] | void{
        const title: string = this.titleEL?.value;
        const description: string = this.descriptionEL?.value;
